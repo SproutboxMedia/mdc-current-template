@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="x-apple-disable-message-reformatting">
+    <title>Vetspanel</title>
+</head>
+<body>
+   <!-- Web Font / @font-face : BEGIN -->
+    <!-- NOTE: If web fonts are not required, lines 10 - 27 can be safely removed. -->
+
+    <!--[if mso]>
+        <style>
+            * {
+                font-family: Arial, sans-serif !important;
+            }
+        </style>
+    <![endif]-->
+
+    <!-- All other clients get the webfont reference; some will render the font and others will silently fail to the fallbacks. More on that here: http://stylecampaign.com/blog/2015/02/webfont-support-in-email/ -->
+    <!--[if !mso]><!-->
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital@0;1&family=Poppins, Montserrat, sans-serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!--<![endif]-->
+
+    <!-- Web Font / @font-face : END -->
+
+    <!-- CSS Reset -->
+    <style>
+
+        /* What it does: Remove spaces around the email design added by some email clients. */
+        /* Beware: It can remove the padding / margin and add a background color to the compose a reply window. */
+        html,
+        body {
+            margin: 0 auto !important;
+            padding: 0 !important;
+            height: 100% !important;
+            width: 100% !important;
+        }
+
+        /* What it does: Stops email clients resizing small text. */
+        * {
+            -ms-text-size-adjust: 100%;
+            -webkit-text-size-adjust: 100%;
+        }
+
+        /* What it does: Centers email on Android 4.4 */
+        div[style*="margin: 16px 0"] {
+            margin:0 !important;
+        }
+
+        /* What it does: Stops Outlook from adding extra spacing to tables. */
+        table,
+        td {
+            mso-table-lspace: 0pt !important;
+            mso-table-rspace: 0pt !important;
+        }
+
+        /* What it does: Fixes webkit padding issue. Fix for Yahoo mail table alignment bug. Applies table-layout to the first 2 tables then removes for anything nested deeper. */
+        table {
+            border-spacing: 0 !important;
+            border-collapse: collapse !important;
+            table-layout: fixed !important;
+            margin: 0 auto !important;
+        }
+        table table table {
+            table-layout: auto;
+        }
+
+        /* What it does: Uses a better rendering method when resizing images in IE. */
+        img {
+            -ms-interpolation-mode:bicubic;
+        }
+
+        /* What it does: A work-around for email clients meddling in triggered links. */
+        *[x-apple-data-detectors],  /* iOS */
+        .x-gmail-data-detectors,    /* Gmail */
+        .x-gmail-data-detectors *,
+        .aBn {
+            border-bottom: 0 !important;
+            cursor: default !important;
+            color: inherit !important;
+            text-decoration: none !important;
+            font-size: inherit !important;
+            font-family: inherit !important;
+            font-weight: inherit !important;
+            line-height: inherit !important;
+        }
+
+        /* What it does: Prevents Gmail from displaying an download button on large, non-linked images. */
+        .a6S {
+            display: none !important;
+            opacity: 0.01 !important;
+        }
+        /* If the above doesn't work, add a .g-img class to any image in question. */
+        img.g-img + div {
+            display:none !important;
+           }
+
+        /* What it does: Prevents underlining the button text in Windows 10 */
+        .button-link {
+            text-decoration: none !important;
+        }
+
+        /* What it does: Removes right gutter in Gmail iOS app */
+        @media only screen and (min-device-width: 375px) and (max-device-width: 413px) { /* iPhone 6 and 6+ */
+            .email-container {
+                min-width: 375px !important;
+            }
+        }
+
+    </style>
+
+    <!-- Progressive Enhancements -->
+    <style>
+
+        /* What it does: Hover styles for buttons */
+        .button-td,
+        .button-a {
+            transition: all 100ms ease-in;
+        }
+        .button-td:hover,
+        .button-a:hover {
+            background:  !important;
+            border-color:  !important;
+        }
+
+        /* Media Queries */
+        @media screen and (max-width: 480px) {
+
+            /* What it does: Forces elements to resize to the full width of their container. Useful for resizing images beyond their max-width. */
+            .fluid {
+                width: 100% !important;
+                max-width: 100% !important;
+                height: auto !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+            }
+
+            /* What it does: Forces table cells into full-width rows. */
+            .stack-column,
+            .stack-column-center {
+                display: block !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                direction: ltr !important;
+            }
+            /* And center justify these ones. */
+            .stack-column-center {
+                text-align: center !important;
+            }
+
+            /* What it does: Generic utility class for centering. Useful for images, buttons, and nested tables. */
+            .center-on-narrow {
+                text-align: center !important;
+                display: block !important;
+                margin-left: auto !important;
+                margin-right: auto !important;
+                float: none !important;
+            }
+            table.center-on-narrow {
+                display: inline-block !important;
+            }
+
+            /* What it does: Adjust typography on small screens to improve readability */
+            .email-container p {
+                font-size: 17px !important;
+                line-height: 22px !important;
+            }
+			
+			.logo-center {
+				text-align: center !important;
+			}
+        }
+
+    </style>
+
+    <!-- What it does: Makes background images in 72ppi Outlook render at correct size. -->
+    <!--[if gte mso 9]>
+    <xml>
+        <o:OfficeDocumentSettings>
+            <o:AllowPNG></o:AllowPNG>
+            <o:PixelsPerInch>96</o:PixelsPerInch>
+        </o:OfficeDocumentSettings>
+    </xml>
+    <![endif]-->
+
+
+
+    <center style="width: 100%; background: #F1F1F1; text-align: left;">
+
+        <!-- Visually Hidden Preheader Text : BEGIN -->
+        <div style="display:none;font-size:1px;line-height:1px;max-height:0px;max-width:0px;opacity:0;overflow:hidden;mso-hide:all;font-family: Poppins, Montserrat, sans-serif;">
+            Registration Confirmation
+        </div>
+        <!-- Visually Hidden Preheader Text : END -->
+
+        <!--
+            Set the email width. Defined in two places:
+            1. max-width for all clients except Desktop Windows Outlook, allowing the email to squish on narrow but never go wider than 680px.
+            2. MSO tags for Desktop Windows Outlook enforce a 680px width.
+            Note: The Fluid and Responsive templates have a different width (600px). The hybrid grid is more "fragile", and I've found that 680px is a good width. Change with caution.
+        -->
+        <div class="email-container" style="max-width: 680px; margin: auto;">
+            <!--[if mso]>
+            <table role="presentation" cellspacing="0" cellpadding="0" border="0" width="680" align="center">
+            <tr>
+            <td>
+            <![endif]-->
+
+            <!-- Email Body : BEGIN -->
+            <table align="center" border="0" cellpadding="0" cellspacing="0" class="email-container" role="presentation" style="max-width: 680px;" width="100%"><!-- HEADER : BEGIN -->
+                <tbody><tr><td bgcolor="#ffffff">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tbody><tr><td class="logo-center" style="padding: 30px 40px 30px 40px; text-align: center;">
+                                    <a href="https://www.vetspanel.com?"><img src="https://i.imgur.com/sSJiD4v.png" alt="VetsPanel Logo" style="height: auto; font-family: Poppins, Montserrat, sans-serif; font-size: 15px; line-height: 20px; color: #555555;" width="200" border="0"></a>
+                                </td></tr></tbody></table>
+                    </td></tr>
+                <!-- HEADER : END -->
+
+                <tr><td bgcolor="#ffffff">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tbody><tr><td style="padding: 0px 40px 20px 40px; text-align: center;">
+                                    <h1 style="margin: 0; font-family: 'Poppins, Montserrat, sans-serif', Poppins, Montserrat, sans-serif; font-size: 60px; line-height: 60px; color: #119da4; font-weight: medium;">! Action Required !
+</h1>
+                                </td></tr></tbody></table>
+</td></tr>
+
+                <!-- INTRO : BEGIN -->
+                <tr><td bgcolor="#ffffff">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tbody><tr><td style="padding: 20px 40px 0px 40px; text-align: center;">
+                                    <h1 style="margin: 0; font-family: 'Poppins, Montserrat, sans-serif', Poppins, Montserrat, sans-serif; font-size: 20px; line-height: 26px; color: #333333; font-weight: bold;">Registration Confirmation
+</h1>
+                                </td></tr>
+                            <tr><td style="padding: 40px 40px 20px 40px; font-family: Poppins, Montserrat, sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left; font-weight:normal;">
+                                    <p style="margin: 0;">In order to <strong>Confirm your Vetspanel Registration</strong> we need to make sure we have the correct email address. Please click on the button below to confirm now.
+</p>
+                                </td></tr>
+<tr><td align="center" style="text-align: center; padding: 0px 20px 40px 20px;" valign="middle">
+
+                                    <!-- Button : BEGIN -->
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="center-on-narrow" role="presentation"><tbody><tr><td class="button-td" style="border-radius: 50px; background: #ff5f00; text-align: center;">
+                                                <a class="button-a" href="[$PANELIST_CONFIRMATION_URL]" style="background: #ff5f00; border: 15px solid #ff5f00; font-family: 'Poppins, Montserrat, sans-serif', Poppins, Montserrat, sans-serif; font-size: 18px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 50px; font-weight: medium;">
+                                                    <span class="button-link" style="color:#ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;Confirm Registration&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </a>
+                                            </td></tr></tbody></table>
+                                    <!-- Button : END -->
+
+                                </td></tr>
+<tr><td style="padding: 0px 40px 20px 40px; font-family: Poppins, Montserrat, sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left; font-weight:normal;">
+                                    <p style="margin: 0;"><strong>Once confirmed your membership activation is subject to the verification of your veterinary credentials. This can take up to 3 days.</strong> Once finalised you will recieve a confirmation email welcoming you to the community.
+</p>
+                                </td></tr>
+                            <tr><td style="padding: 20px 40px 20px 40px; font-family: Poppins, Montserrat, sans-serif; font-size: 15px; line-height: 20px; color: #555555; text-align: left; font-weight:normal;">
+                                    <p style="margin: 0;">Kind regards,</p>
+                                </td></tr>
+
+                            <tr><td align="left" style="padding: 0px 40px 40px 40px;">
+
+                                    <table align="left" role="presentation" width="180"><tbody><tr><td width="70">
+                                            <img src="https://i.imgur.com/RgOtJIc.png" style="margin:0; padding:0; border:none; display:block;" alt="Vetspanel Paw Icon" width="62" height="62" border="0">
+                                          </td>
+                                          <td width="110">                                         
+                                            <table border="0" cellpadding="0" cellspacing="0" role="presentation" width=""><tbody><tr><td align="left" class="body-text" style="font-family: Poppins, Montserrat, sans-serif; font-size:14px; line-height:20px; color:#222222; font-weight:bold;">
+                                                  <p class="body-text" style="font-family: 'Poppins, Montserrat, sans-serif', Poppins, Montserrat, sans-serif; font-size:14px; line-height:20px; color:#222222; font-weight:bold; padding:0; margin:0;">The Vetspanel Team</p>   
+                                                </td></tr></tbody></table>
+                                          </td></tr></tbody></table>
+
+                                </td></tr></tbody></table>
+                    </td></tr>
+                <!-- INTRO : END -->
+
+                <!-- CTA : BEGIN -->
+                <tr><td bgcolor="#119da4">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tbody><tr><td style="padding: 40px 40px 5px 40px; text-align: center;">
+                                    <h1 style="margin: 0; font-family: 'Poppins, Montserrat, sans-serif', Poppins, Montserrat, sans-serif; font-size: 20px; line-height: 24px; color: #ffffff; font-weight: bold;">Visit Vetspanel Today!</h1>
+                                </td></tr>
+                            <tr><td style="padding: 0px 40px 20px 40px; font-family: Poppins, Montserrat, sans-serif; font-size: 17px; line-height: 23px; color: #ffffff; text-align: center; font-weight:normal;">
+                                    <p style="margin: 0;">Read articles, take surveys and redeem rewards</p>
+                                </td></tr>
+                            <tr><td align="center" style="text-align: center; padding: 0px 20px 40px 20px;" valign="middle">
+
+                                    <!-- Button : BEGIN -->
+                                    <table align="center" border="0" cellpadding="0" cellspacing="0" class="center-on-narrow" role="presentation"><tbody><tr><td class="button-td" style="border-radius: 50px; background: #ff5f00; text-align: center;">
+                                                <a class="button-a" href="https://www.vetspanel.com?" style="background: #ff5f00; border: 15px solid #ff5f00; font-family: 'Poppins, Montserrat, sans-serif', Poppins, Montserrat, sans-serif; font-size: 14px; line-height: 1.1; text-align: center; text-decoration: none; display: block; border-radius: 50px; font-weight: bold;">
+                                                    <span class="button-link" style="color:#ffffff;">&nbsp;&nbsp;&nbsp;&nbsp;Visit Vetspanel&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                                                </a>
+                                            </td></tr></tbody></table>
+                                    <!-- Button : END -->
+
+                                </td></tr></tbody></table>
+                    </td></tr>
+                <!-- CTA : END -->
+
+                <!-- SOCIAL : BEGIN -->
+                <tr><td bgcolor="#2d2926">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tbody><tr><td style="padding: 30px 30px; text-align: center;">
+                                    
+                                </td></tr></tbody></table>
+                    </td></tr>
+                <!-- SOCIAL : END -->
+
+                <!-- 1FOOTER : BEGIN -->
+                <tr><td bgcolor="#ffffff">
+                        <table border="0" cellpadding="0" cellspacing="0" role="presentation" width="100%"><tbody><tr><td style="padding: 20px 40px 10px 40px; text-align: center;">
+                                    <a href="https://www.vetspanel.com?"><img src="https://i.imgur.com/sSJiD4v.png" alt="VetsPanel Logo" style="height: auto; font-family: Poppins, Montserrat, sans-serif; font-size: 15px; line-height: 20px; color: #555555;" width="150" border="0"></a>
+                                </td></tr>
+<tr><td style="padding: 0px 40px 10px 40px; font-family: Poppins, Montserrat, sans-serif; font-size: 12px; line-height: 18px; color: #666666; text-align: center; font-weight:normal;">
+                                    <p style="margin: 0;"><a href="https://www.vetspanel.com/terms-conditions/" style="color: #666666; text-decoration:none;" target="blank">T&amp;C's</a> | <a href="https://www.vetspanel.com/privacy-policy/" style="color: #666666; text-decoration:none;" target="blank">Privacy</a> | <a href="mailto:contact@vetspanel.com" style="color: #666666; text-decoration:none;" target="blank">Help</a> | <a href="https://members.vetspanel.com/" style="color: #666666; text-decoration:none;" target="blank">Unsubscribe</a></p>
+                                </td></tr>
+                            <tr><td style="padding: 10px 40px 10px 40px; font-family: Poppins, Montserrat, sans-serif; font-size: 12px; line-height: 18px; color: #666666; text-align: center; font-weight:normal;">
+<p style="margin: 0;">Copyright © 2022 <strong>Vetspanel</strong>, All Rights Reserved.</p>
+                                </td></tr>
+                            <tr><td style="padding: 0px 40px 10px 40px; font-family: Poppins, Montserrat, sans-serif; font-size: 12px; line-height: 18px; color: #666666; text-align: center; font-weight:normal;">
+                                    <p style="margin: 0;">Vetspanel is operated by CM Research Ltd, 1st Floor, 74 Church Street, Leatherhead, Surrey, KT22 8ER </p>
+                                </td></tr></tbody></table>
+                    </td></tr>
+                <!-- FOOTER : END --></tbody></table>
+            <!-- Email Body : END -->
+
+            <!--[if mso]>
+            </td>
+            </tr>
+            </table>
+            <![endif]-->
+        </div>
+
+    </center> 
+</body>
+</html>
